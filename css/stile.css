@@ -1,0 +1,197 @@
+body {
+  background-color: pink;
+}
+
+:root {
+  --bg: #0d0d0d;
+  --surface: #141414;
+  --border: #2a2a2a;
+  --accent: #c8a96e;
+  --accent-dim: rgba(200, 169, 110, 0.15);
+  --text: #e8e2d9;
+  --text-muted: #6b6560;
+  --navbar-h: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "DM Mono", monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NAVBAR ─────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+
+.navbar a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--navbar-h);
+  padding: 0 36px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  border-right: 1px solid var(--border);
+}
+
+.navbar a:first-child {
+  border-left: 1px solid var(--border);
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navbar a:hover {
+  color: var(--accent);
+}
+
+.navbar a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────── */
+center {
+  display: block;
+  padding-top: calc(var(--navbar-h) + 60px);
+  padding-bottom: 80px;
+}
+
+/* ── SECTIONS ────────────────────────────────────────── */
+.section {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 80px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Decorative label above each iframe */
+.section::before {
+  content: attr(id);
+  display: block;
+  margin-bottom: 12px;
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* Gold frame around iframe */
+.section::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.section:hover::after {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(200, 169, 110, 0.08);
+}
+
+/* ── IFRAME ──────────────────────────────────────────── */
+.section iframe {
+  display: block;
+  border: none;
+  background: var(--surface);
+  max-width: 90vw;
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ── ANIMATION ───────────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar a {
+    padding: 0 18px;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .section iframe {
+    width: 94vw !important;
+    height: 600px !important;
+  }
+}
